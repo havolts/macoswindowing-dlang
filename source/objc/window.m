@@ -1,30 +1,17 @@
+//source/objc/window.m
 #import <Cocoa/Cocoa.h>
 
 NSMutableArray *windows;
 static NSMutableDictionary *terminateObservers;
 
-void doTerminateOnCloseC(NSWindow *window, BOOL shouldTerminate) {
-    if (!terminateObservers) {
-        terminateObservers = [NSMutableDictionary dictionary];
-    }
-    
-    if (shouldTerminate == YES) {
-        id observer = [[NSNotificationCenter defaultCenter] addObserverForName:NSWindowWillCloseNotification
-                                                                        object:window
-                                                                         queue:nil
-                                                                    usingBlock:^(NSNotification * _Nonnull note) {
-            [NSApp terminate:nil];
-        }];
-        terminateObservers[[NSValue valueWithNonretainedObject:window]] = observer;
-    } else {
-        id observer = terminateObservers[[NSValue valueWithNonretainedObject:window]];
-        if (observer) {
-            [[NSNotificationCenter defaultCenter] removeObserver:observer
-                                                            name:NSWindowWillCloseNotification
-                                                          object:window];
-            [terminateObservers removeObjectForKey:[NSValue valueWithNonretainedObject:window]];
-        }
-    }
+void initializeApplication() {
+    [NSApplication sharedApplication];
+    [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
+    windows = [NSMutableArray array];
+}
+
+void activateApplication() {
+    [NSApp activateIgnoringOtherApps:YES];
 }
 
 void initializeMultithreading() {
@@ -40,12 +27,6 @@ void initializeMultithreading() {
     [NSThread exit];
 }
 @end
-
-void initializeApplication() {
-    [NSApplication sharedApplication];
-    [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
-    windows = [NSMutableArray array];
-}
 
 NSWindow* createWindow(float width, float height, const char *cTitle) {
     NSRect frame = NSMakeRect(0, 0, width, height);
@@ -97,8 +78,28 @@ void setupWindow(NSWindow *window) {
     setWindowDelegate(window);
 }
 
-void activateApplication() {
-    [NSApp activateIgnoringOtherApps:YES];
+void doTerminateOnCloseC(NSWindow *window, BOOL shouldTerminate) {
+    if (!terminateObservers) {
+        terminateObservers = [NSMutableDictionary dictionary];
+    }
+
+    if (shouldTerminate == YES) {
+        id observer = [[NSNotificationCenter defaultCenter] addObserverForName:NSWindowWillCloseNotification
+                                                                        object:window
+                                                                         queue:nil
+                                                                    usingBlock:^(NSNotification * _Nonnull note) {
+            [NSApp terminate:nil];
+        }];
+        terminateObservers[[NSValue valueWithNonretainedObject:window]] = observer;
+    } else {
+        id observer = terminateObservers[[NSValue valueWithNonretainedObject:window]];
+        if (observer) {
+            [[NSNotificationCenter defaultCenter] removeObserver:observer
+                                                            name:NSWindowWillCloseNotification
+                                                          object:window];
+            [terminateObservers removeObjectForKey:[NSValue valueWithNonretainedObject:window]];
+        }
+    }
 }
 
 void pollEvents() {
