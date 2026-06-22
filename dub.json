@@ -1,11 +1,14 @@
 {
   "authors": ["Hudhayfa"],
   "copyright": "Copyright © 2025, Hudhayfa",
-  "description": "A minimal D application.",
+  "description": "A minimal windowing library.",
   "license": "proprietary",
   "name": "macoswindowing",
-  "libs": ["WindowModule"],
+  "targetType": "library",
+  "libs": ["WindowModule", "macoswindowing"],
   "lflags": ["-L$PACKAGE_DIR/libs/"],
+  "sourcePaths": ["source"],
+  "importPaths": ["source"],
   "preBuildCommands": [
     "clang -framework Cocoa -shared -o libs/libWindowModule.dylib source/objc/window.m"
   ]
