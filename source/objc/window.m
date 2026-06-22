@@ -4,6 +4,15 @@
 NSMutableArray *windows;
 static NSMutableDictionary *terminateObservers;
 
+//setSizeLimits:
+
+
+
+//setContentView:
+void setView(NSWindow *window, NSView *view) {
+    [window setContentView:view];
+}
+
 void initializeApplication() {
     [NSApplication sharedApplication];
     [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
@@ -37,9 +46,12 @@ NSWindow* createWindow(float width, float height, const char *cTitle) {
                                                       defer:NO];
     NSString *objcTitle = [NSString stringWithUTF8String:cTitle];
     [window setTitle:objcTitle];
-    [window makeKeyAndOrderFront:nil];
     [windows addObject:window];
     return window;
+}
+
+void showWindow(NSWindow *window) {
+    [window makeKeyAndOrderFront:nil];
 }
 
 @interface CustomWindow : NSWindow

@@ -14,3 +14,4 @@ macoswindowing-test-*
 *.o
 *.obj
 *.lst
+*.DS_Store

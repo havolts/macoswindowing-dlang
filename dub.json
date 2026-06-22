@@ -1,9 +1,15 @@
 {
-  "authors": ["Hudhayfa"],
-  "copyright": "Copyright © 2025, Hudhayfa",
+  "authors": ["havolts"],
+  "copyright": "Copyright © 2025, havolts",
   "description": "A minimal windowing library.",
   "license": "proprietary",
   "name": "macoswindowing",
+  "dependencies": {
+    "metalrendering": {
+      "repository": "git+https://github.com/havolts/dlang-metal-bindings.git",
+      "version": "~main"
+    }
+  },
   "targetType": "library",
   "libs": ["WindowModule"],
   "lflags": ["-L$PACKAGE_DIR/libs/"],
