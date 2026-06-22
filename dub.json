@@ -5,11 +5,11 @@
   "license": "proprietary",
   "name": "macoswindowing",
   "targetType": "library",
-  "libs": ["WindowModule", "macoswindowing"],
+  "libs": ["WindowModule"],
   "lflags": ["-L$PACKAGE_DIR/libs/"],
   "sourcePaths": ["source"],
   "importPaths": ["source"],
   "preBuildCommands": [
-    "clang -framework Cocoa -shared -o libs/libWindowModule.dylib source/objc/window.m"
+    "clang -framework Cocoa -shared -o $PACKAGE_DIR/libs/libWindowModule.dylib $PACKAGE_DIR/source/objc/window.m"
   ]
 }

@@ -8,6 +8,7 @@ extern (C)
     void setupWindow(void* window);
     void activateApplication();
     void doTerminateOnCloseC(void* window, bool shouldTerminate);
+    void pollEvents();
 }
 
 class Window
