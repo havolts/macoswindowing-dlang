@@ -1,6 +1,4 @@
-//window.d
 import std.stdio, std.conv, std.string;
-import colour;
 
 extern (C)
 {
@@ -8,41 +6,46 @@ extern (C)
     void* createWindow(float width, float height, immutable(char)* title);
     void setupWindow(void* window);
     void activateApplication();
-    void pollEvents();
-    void DrawPixelC(void* window, int x, int y, float r, float g, float b, float a);
+    void doTerminateOnCloseC(void* window, bool shouldTerminate);
 }
 
 class Window
 {
-    void* window;
+    void* window; // The window reference
     int width, height;
     string title;
-    this(int inWidth, int inHeight, string inTitle)
+
+    // Constructor should not be marked as `shared`
+    shared this(int inWidth, int inHeight, string inTitle)
     {
         width = inWidth;
         height = inHeight;
         title = inTitle;
-        initializeApplication();
+        initializeApplication(); // Safe, no threads involved here
     }
 
-    void start()
+    // This function can be marked as shared, since it will be used for thread-safe window interaction
+    shared void start()
     {
         title = format(title);
-        window = createWindow(width, height, title.toStringz());
-        setupWindow(window);
+        window = cast(shared(void*)) createWindow(cast(float) width, cast(float) height, title.toStringz());
+        setupWindow(cast(void*) window); // Cast to void* for window manipulation
         activateApplication();
     }
 
-    void drawPixel(int x, int y, Colour c)
+    // Shared getter methods
+    shared float getWidth()
     {
-        // Ensure x and y are within bounds
-        if (x >= 0 && x < width && y >= 0 && y < height)
-        {
-            DrawPixelC(window, x, y, c.r, c.g, c.b, c.a);
-        }
-        else
-        {
-            writeln("[WARNING] Pixel coordinates out of bounds: (", x, ", ", y, ")");
-        }
+        return width;
+    }
+
+    shared float getHeight()
+    {
+        return height;
+    }
+
+    shared void doTerminateOnClose(bool shouldTerminate)
+    {
+        doTerminateOnCloseC(cast(void*) window, shouldTerminate);
     }
 }
