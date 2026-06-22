@@ -1,3 +1,5 @@
+module macoswindowing;
+
 import std.stdio, std.conv, std.string;
 
 extern (C)
