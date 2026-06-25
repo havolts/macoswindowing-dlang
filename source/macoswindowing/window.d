@@ -17,12 +17,14 @@ extern (C)
 class Window
 {
     void* window; // The window reference
-
+    float width, height;
     shared this(int inWidth, int inHeight, string inTitle)
     {
         inTitle = format(inTitle);
         window = cast(shared(void*)) createWindow(cast(float) inWidth, cast(float) inHeight, inTitle.toStringz());
         initializeApplication(); // Safe, no threads involved here
+        width = inWidth;
+        height = inHeight;
     }
 
     // This function can be marked as shared, since it will be used for thread-safe window interaction
