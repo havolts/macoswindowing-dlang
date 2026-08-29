@@ -1,7 +1,7 @@
 //source/macoswindowing/window.d
 module macoswindowing.window;
 import std.stdio, std.conv, std.string;
-import metalrendering;
+import dmetal;
 
 extern (C)
 {

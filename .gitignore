@@ -6,7 +6,6 @@ docs/
 macoswindowing.so
 macoswindowing.dylib
 macoswindowing.dll
-macoswindowing.a
 macoswindowing.lib
 macoswindowing-test-*
 *.exe
@@ -14,4 +13,5 @@ macoswindowing-test-*
 *.o
 *.obj
 *.lst
-*.DS_Store
+*/.DS_Store
+libmacoswindowing.a

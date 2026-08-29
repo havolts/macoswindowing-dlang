@@ -3,9 +3,9 @@
   "copyright": "Copyright © 2025, havolts",
   "description": "A minimal windowing library.",
   "license": "proprietary",
-  "name": "macoswindowing",
+  "name": "d-windowing",
   "dependencies": {
-    "metalrendering": {
+    "d-metal": {
       "repository": "git+https://github.com/havolts/dlang-metal-bindings.git",
       "version": "~main"
     }
