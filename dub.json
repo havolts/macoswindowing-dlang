@@ -5,10 +5,6 @@
   "license": "proprietary",
   "name": "d-windowing",
   "dependencies": {
-    "d-metal": {
-      "repository": "git+https://github.com/havolts/dlang-metal-bindings.git",
-      "version": "~main"
-    },
     "d-apple": {
       "repository": "git+https://github.com/havolts/d-apple.git",
       "version": "~main"
