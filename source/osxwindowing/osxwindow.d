@@ -18,8 +18,8 @@ class OSXWindow
         NSWindow.StyleMask style = NSWindow.StyleMask.titled | NSWindow.StyleMask.closable | NSWindow.StyleMask.resizable;
         window = NSWindow.alloc().init(contentRect, style, NSWindow.BackingStoreType.buffered, false);
         window.title = _title.ns;
-        windowDelegate = OSXWindowDelegate.alloc().init();
-        window.setDelegate(windowDelegate);
+        //windowDelegate = OSXWindowDelegate.alloc().init();
+        //window.setDelegate(windowDelegate);
         window.makeKeyAndOrderFront(null);
     }
 
