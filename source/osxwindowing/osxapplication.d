@@ -18,8 +18,9 @@ class OSXApplication
         nsApp.activateIgnoringOtherApps(true);
     }
 
-    void CreateWindow(int width, int height, string title)
+    OSXWindow CreateWindow(int width, int height, string title)
     {
         windows ~= new OSXWindow(width, height, title);
+        return(windows[$-1]);
     }
 }
