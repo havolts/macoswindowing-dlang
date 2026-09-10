@@ -11,6 +11,7 @@ macoswindowing-test-*
 *.exe
 *.pdb
 *.o
+*.a
 *.obj
 *.lst
 */.DS_Store
