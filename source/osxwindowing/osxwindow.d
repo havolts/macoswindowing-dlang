@@ -10,6 +10,15 @@ class OSXWindow
     OSXWindowDelegate windowDelegate;
     string title;
 
+    void terminateApp(bool terminate)
+    {
+        windowDelegate.terminateApp = terminate;
+    }
+    bool terminateApp()
+    {
+        return windowDelegate.terminateApp;
+    }
+
     this(int width, int height, string _title)
     {
         title = _title;
