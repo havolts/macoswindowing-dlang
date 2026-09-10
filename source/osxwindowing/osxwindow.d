@@ -1,16 +1,15 @@
 module osxwindowing.osxwindow;
-
 import cocoa;
 import cocoa.foundation.nsrect : NSMakeRect;
-import metalkit;
 import osxwindowing.osxwindowdelegate;
-// Windowing for OSX
+import metalkit;
 
 class OSXWindow
 {
     NSWindow window;
     OSXWindowDelegate windowDelegate;
     string title;
+
     this(int width, int height, string _title)
     {
         title = _title;
@@ -18,8 +17,10 @@ class OSXWindow
         NSWindow.StyleMask style = NSWindow.StyleMask.titled | NSWindow.StyleMask.closable | NSWindow.StyleMask.resizable;
         window = NSWindow.alloc().init(contentRect, style, NSWindow.BackingStoreType.buffered, false);
         window.title = _title.ns;
-        //windowDelegate = OSXWindowDelegate.alloc().init();
-        //window.setDelegate(windowDelegate);
+
+        windowDelegate = OSXWindowDelegate.alloc().init();
+        window.setDelegate(windowDelegate);
+
         window.makeKeyAndOrderFront(null);
     }
 
