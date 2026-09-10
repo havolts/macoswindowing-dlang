@@ -11,8 +11,12 @@
     }
   },
   "targetType": "library",
-  "libs": ["WindowModule"],
-  "lflags": ["-L$PACKAGE_DIR/libs/"],
+  "libs": ["WindowModule", "OSXWindowDelegate"],
+  "lflags": ["-L$PACKAGE_DIR/libs/", "-L$PACKAGE_DIR/source/osxwindowing/"],
   "sourcePaths": ["source"],
-  "importPaths": ["source"]
+  "importPaths": ["source"],
+  "preBuildCommands": [
+    "clang -c source/osxwindowing/OSXWindowDelegate.m -o source/osxwindowing/OSXWindowDelegate.o",
+    "ar rcs source/osxwindowing/libOSXWindowDelegate.a source/osxwindowing/OSXWindowDelegate.o"
+  ]
 }

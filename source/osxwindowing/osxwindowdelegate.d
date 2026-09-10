@@ -6,11 +6,13 @@ import core.attribute : selector;
 extern(Objective-C)
 extern class OSXWindowDelegate : NSObject, NSWindowDelegate
 {
-    bool terminateApp = false;
+    // Bind to the Objective-C property
+    bool terminateApp() @selector("terminateApp");
+    void terminateApp(bool) @selector("setTerminateApp:");
+
     override static OSXWindowDelegate alloc() @selector("alloc");
     override OSXWindowDelegate init() @selector("init");
-    void windowWillClose(NSNotification notification) @selector("windowWillClose:")
-    {
-        if(terminateApp) NSApplication.sharedApplication().terminate(this);
-    }
+
+    // Declaration only, no body
+    void windowWillClose(NSNotification notification) @selector("windowWillClose:");
 }
